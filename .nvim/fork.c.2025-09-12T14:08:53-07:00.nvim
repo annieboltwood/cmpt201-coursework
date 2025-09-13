@@ -1,0 +1,19 @@
+#include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <stdlib.h>
+
+
+int main() {
+
+  pid_t pid = fork();
+  if (pid) {
+    printf("Parent: child pid is %d\n", pid);
+  } else if (pid == 0) {
+    printf("child\n");
+  }else{
+    perror("fork");
+    exit(EXIT_FAILURE);
+  }
+  return 0;
+}

@@ -1,0 +1,38 @@
+#define _POSIX_C_SOURCE 200809L
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main(void) {
+  char *buffer = NULL; // set pointer to null so getline() knows to hold mem
+  size_t buffer_size =
+      0; // stores how big the buffer is, 0 for now (getline will allocate size)
+  ssize_t nread;
+  printf("Please enter some text: ");
+  nread = getline(&buffer, &buffer_size,
+                  stdin); // allocs buffer, puts lines into buffer, update size
+
+  // error checking
+  if (nread == -1) {
+    perror("getline error");
+    return 1;
+  }
+
+  printf("Tokens:\n");
+  char *saveptr; // store progress of pointer
+
+  // call strtokr to get first token
+  // arguments: buffer the text to split, newline, update address of saveptr
+  char *token = strtok_r(buffer, " \n", &saveptr);
+
+  while (token != NULL) {
+    printf(" %s\n", token);
+    // ask strtok for next token, pass null instead of buffer to continue where
+    // left off
+    token = strtok_r(NULL, " \n", &saveptr);
+  }
+
+  free(buffer);
+  return 0;
+}

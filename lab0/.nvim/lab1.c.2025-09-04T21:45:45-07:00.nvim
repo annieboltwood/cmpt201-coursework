@@ -1,0 +1,11 @@
+#include <stdio.h>
+
+int main() {
+
+  char *input = NULL;
+  int inputLength = 0;
+  int read;
+  
+  printf("Please enter some text: ");
+  return 0;
+}

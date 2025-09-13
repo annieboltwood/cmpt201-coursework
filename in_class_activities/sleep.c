@@ -1,0 +1,14 @@
+#include <stdio.h>
+#include <unistd.h>
+
+int main() {
+  fork();
+  int var = 1;
+
+  while (var == 1) {
+    printf("Sleeping\n");
+    sleep(1);
+  }
+
+  return 0;
+}

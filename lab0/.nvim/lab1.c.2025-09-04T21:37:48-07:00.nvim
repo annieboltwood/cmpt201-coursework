@@ -1,0 +1,11 @@
+#include <stdio.h>
+
+int main(){
+  
+  
+  char *input = NULL;
+  int inputLength = 0;
+  int read;
+
+  return 0;
+}

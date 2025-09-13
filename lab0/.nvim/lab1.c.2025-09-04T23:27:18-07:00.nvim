@@ -1,0 +1,20 @@
+#include <stdio.h>
+
+int main() {
+
+  char *input = NULL;
+  int inputLength = 0;
+  int readInput;
+
+  printf("Please enter some text: ");
+
+  readInput = getline(&input, &inputLength,stdin);
+
+  if (readInput != -1){
+    printf("You entered: %s", input);
+
+  }else{
+    perror("Error reading line");
+  }
+  return 0;
+}
