@@ -1,0 +1,42 @@
+#define _POSIX_C_SOURCE 200809L
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define HISTORY_SIZE 5
+
+int main() {
+  char *history[HISTORY_SIZE] = {NULL}; // store last 5 input
+  int count = 0;
+  char *line = NULL;
+  size_t len = 0;
+
+  while (1) {
+    printf("enter input: ");
+    getline(&line, &len, stdin);
+    line[strcspn(line, "\n")] = 0; // remove newline
+
+    free(history[count % HISTORY_SIZE]);  // free old mem
+    history[count % HISTORY_SIZE] = line; // store ptr
+
+    count++;
+    if (strcmp(line, "print") == 0) {
+      printf("\n");
+
+      for (int i = 0; i < HISTORY_SIZE; i++) {
+        int index = (count - HISTORY_SIZE + i);
+        if (index >= 0 && history[index % HISTORY_SIZE] != NULL) {
+          printf("%s\n", history[index % HISTORY_SIZE]);
+        }
+      }
+
+      printf("\n");
+    }
+    line = NULL;
+  }
+  // free mem
+  for (int i = 0; i < HISTORY_SIZE; i++) {
+    free(history[i]);
+  }
+
+  return 0;
+}
